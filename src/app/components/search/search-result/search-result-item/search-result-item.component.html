@@ -1,0 +1,14 @@
+<div class="item-card">
+<mat-card>
+  <img mat-card-image src='{{item!.url_m}}' alt="IMG">
+  <mat-card-actions>
+    <button
+      mat-raised-button color="primary"
+      (click)="addBookmark(item!.id)"
+    >Bookmark It!</button>
+  </mat-card-actions>
+  <mat-card-content>
+    <p>{{item.tags}}</p>
+  </mat-card-content>
+</mat-card>
+</div>

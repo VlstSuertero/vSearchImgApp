@@ -1,0 +1,10 @@
+<div class="item-card">
+  <mat-card>
+    <img mat-card-image src="{{bookmark!.url_m}}" alt="IMG">
+    <mat-card-actions>
+      <button mat-raised-button color="primary"
+      (click)="removeBookmark(bookmark!.id)"
+      >Remove It!</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

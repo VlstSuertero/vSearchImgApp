@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="top">
+    <button mat-raised-button color="primary">< Back</button>
+    <span>{{results.length}}</span>
+    <button mat-raised-button color="primary">Forward ></button>
+  </div>
+
+  <div class="table">
+    <div *ngFor="let item of results">
+    <app-search-result-item [item] = item></app-search-result-item>
+    </div>
+  </div>
+</div>
+
+

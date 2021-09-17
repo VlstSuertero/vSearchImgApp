@@ -1,0 +1,17 @@
+<form [formGroup]="searchForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="card">
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Find images</mat-label>
+            <input matInput formControlName="query">
+            <button mat-icon-button matSuffix type="submit">
+              <mat-icon matSuffix>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>

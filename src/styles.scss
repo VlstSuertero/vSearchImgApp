@@ -1,0 +1,31 @@
+html, body { height: 100%; }
+body {
+  margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: gray;
+}
+
+.container {
+  margin: 0 5% 0 5%;
+
+  //@media (max-width: 700px) {
+  //  margin: 0 10%;
+  //}
+}
+.table {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.item-card {
+  margin: 10px;
+  max-width: 250px;
+
+  img {
+    max-height: 225px;
+    object-fit: contain;
+  }
+}
+button {
+  color: aquamarine !important;
+}
