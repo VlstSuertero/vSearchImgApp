@@ -9,3 +9,10 @@ export const getPhotos = createSelector(
     return elem.image.items
   }
 )
+
+export const getBookmarks = createSelector(
+  imageFinderSelectors,
+  (elem: any): any => {
+    return elem.bookmark?.items
+  }
+)

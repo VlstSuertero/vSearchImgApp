@@ -14,8 +14,4 @@ export class Dispatcher {
   fetch(query?: string) {
     this.store$.dispatch(fetch({query}))
   }
-
-  // addBookmark(id: string){
-  //   this.store$.dispatch(addBookmark({id}))
-  // }
 }

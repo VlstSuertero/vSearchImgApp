@@ -13,9 +13,8 @@ export interface ImageFinderState {
     isLoading: boolean,
   },
   bookmark: {
-    ids: string[],
+    items: Image[],
     error?: Error,
-    isLoading: boolean,
   },
 }
 
@@ -26,8 +25,7 @@ export const initialState: ImageFinderState = {
     isLoading: false,
   },
   bookmark: {
-    ids: [],
-    isLoading: false,
+    items: [],
   }
 };
 
@@ -61,14 +59,12 @@ export const reducer = createReducer(
     ...state,
     bookmark: {
       ...state.bookmark,
-      isLoading: true,
     }
   })),
-  on(actions.fetchBookmarkSuccess, (state, {ids}) => ({
+  on(actions.fetchBookmarkSuccess, (state, {item}) => ({
     ...state,
     bookmark: {
-      ids: ids,
-      isLoading: false,
+      items: [...state.bookmark.items, item],
     }
   })),
   on(actions.fetchBookmarkFailure, (state, {error}) => ({
@@ -76,24 +72,23 @@ export const reducer = createReducer(
     bookmark: {
       ...state.bookmark,
       error: error,
+    }
+  })),
+  on(actions.addBookmark, (state, {item}) => ({
+    ...state,
+    bookmark: {
+      ...state.bookmark,
+      ids: [...state.bookmark.items, item],
       isLoading: false,
     }
   })),
-  // on(actions.addBookmark, (state, {id}) => ({
-  //   ...state,
-  //   bookmark: {
-  //     ...state.bookmark,
-  //     ids: [...state.bookmark.ids, id],
-  //     isLoading: false,
-  //   }
-  // })),
-  // on(actions.removeBookmark, (state, {id: removeId}) => ({
-  //   ...state,
-  //   bookmark: {
-  //     ...state.image,
-  //     ids: state.bookmark.ids.filter(id => id !== removeId),
-  //     isLoading: false,
-  //   }
-  // })),
+  on(actions.removeBookmark, (state, {id: removeId}) => ({
+    ...state,
+    bookmark: {
+      ...state.image,
+      ids: state.bookmark.items.filter(item => item.id !== removeId),
+      isLoading: false,
+    }
+  })),
 );
 

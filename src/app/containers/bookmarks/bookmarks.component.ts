@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BookmarkStorageService } from '../../services/storage';
 import { select, Store } from '@ngrx/store';
 import { Image } from '../../store/models';
-import { getPhotos } from '../../store';
+import { getBookmarks } from '../../store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-bookmarks-container',
@@ -11,22 +11,12 @@ import { getPhotos } from '../../store';
 })
 export class BookmarksComponent implements OnInit {
 
-  private images: Image[] = []
-  private bookmarks: string[] = []
+  bookmarks$?: Observable<Image[]>;
 
-  constructor(
-    private storage: BookmarkStorageService,
-    private store$: Store,
-  ) {
-  }
-
-  get list(): Image[] {
-    return this.images.filter(image => this.bookmarks.includes(image.id))
+  constructor(private store$: Store) {
   }
 
   ngOnInit(): void {
-    this.storage.bookmarks$().subscribe(bookmarks => this.bookmarks = bookmarks)
-    this.store$.pipe(select(getPhotos)).subscribe(images => this.images = images)
+    this.bookmarks$ = this.store$.pipe(select(getBookmarks))
   }
-
 }

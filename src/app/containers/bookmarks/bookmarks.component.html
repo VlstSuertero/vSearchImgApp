@@ -1,1 +1,1 @@
-<app-bookmark-list [bookmarks]="list"></app-bookmark-list>
+<app-bookmark-list [bookmarks]="(this.bookmarks$ | async) || []"></app-bookmark-list>
