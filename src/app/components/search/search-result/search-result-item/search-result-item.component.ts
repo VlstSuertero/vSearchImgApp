@@ -11,15 +11,11 @@ export class SearchResultItemComponent implements OnInit {
 
   @Input() item: any
 
-  private test: any
-
   constructor(
      private storage: BookmarkStorageService,
   ) { }
 
   ngOnInit(): void {
-
-    this.test = JSON.stringify(this.item)
 
   }
 

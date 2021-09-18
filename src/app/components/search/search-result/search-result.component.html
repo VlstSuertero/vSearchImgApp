@@ -1,12 +1,14 @@
 <div class="container">
   <div class="top">
-    <button mat-raised-button color="primary">< Back</button>
-    <span>{{results.length}}</span>
-    <button mat-raised-button color="primary">Forward ></button>
+    <mat-paginator [length]="results.length"
+                   [pageSize]="10"
+                   (page)="pageEvent = $event"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   aria-label="Select page">
+    </mat-paginator>
   </div>
-
   <div class="table">
-    <div *ngFor="let item of results">
+    <div *ngFor="let item of results | paginator:pageEvent">
     <app-search-result-item [item] = item></app-search-result-item>
     </div>
   </div>
