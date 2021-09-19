@@ -1,7 +1,7 @@
 export interface Image {
   id: string;
   title: string;
-  tags: string;
+  tags?: string;
   owner: string;
   ownername: string;
   datetaken: string;

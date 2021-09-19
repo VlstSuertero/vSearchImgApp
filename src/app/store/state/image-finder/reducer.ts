@@ -78,7 +78,7 @@ export const reducer = createReducer(
     ...state,
     bookmark: {
       ...state.bookmark,
-      ids: [...state.bookmark.items, item],
+      items: [...state.bookmark.items, item],
       isLoading: false,
     }
   })),
@@ -86,7 +86,7 @@ export const reducer = createReducer(
     ...state,
     bookmark: {
       ...state.image,
-      ids: state.bookmark.items.filter(item => item.id !== removeId),
+      items: state.bookmark.items.filter(item => item.id !== removeId),
       isLoading: false,
     }
   })),

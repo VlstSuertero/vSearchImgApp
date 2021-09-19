@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { EMPTY, from, of } from 'rxjs';
-import { catchError, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import { ApiService } from '../../../services/api';
 
-import { fetch, fetchBookmark, fetchBookmarkFailure, fetchBookmarkSuccess, fetchSuccess } from './actions';
+import {
+  fetch,
+  fetchBookmark,
+  fetchBookmarkFailure,
+  fetchBookmarkSuccess,
+  fetchSuccess,
+  removeBookmark
+} from './actions';
 import { Store } from '@ngrx/store';
 import { getBookmarks } from './selectors';
 import { Image } from '../../models';
@@ -38,13 +45,25 @@ export class ImageFinderEffects {
     () => this.storage.bookmarks$().pipe(
       withLatestFrom(this.store$.select(getBookmarks)),
       map(
-        ([ids, bookmarks]) => ids.filter(
-          id => !bookmarks.some((bookmark: Image) => bookmark.id === id)
-        )
+        ([ids, bookmarks]) => {
+          const added = ids
+            .filter(id => !bookmarks.some((bookmark: Image) => bookmark.id === id))
+            .map(id => ({type: 'added', id: id}))
+
+          const removed = bookmarks
+            .filter((bookmark: Image) => !ids.some(id => bookmark.id === id))
+            .map((bookmark: Image) => ({type: 'removed', id: bookmark.id}))
+
+          return [...added, ...removed]
+        }
       ),
       mergeMap(ids => from(ids).pipe(
-        map(id => ({id})),
-        map(fetchBookmark),
+        map(({type, id}) => {
+          switch (type) {
+            case 'added': return fetchBookmark({id})
+            default: return removeBookmark({id})
+          }
+        }),
       )),
     )
   );

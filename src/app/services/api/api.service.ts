@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { Image } from '../../store/models';
-import { EMPTY, of } from 'rxjs';
-import { fetchBookmarkFailure } from '../../store';
 
 enum flickr {
   key = '5a0dc28028017c1990fb0144d9a20b1b',
